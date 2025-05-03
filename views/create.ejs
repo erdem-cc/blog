@@ -1,0 +1,11 @@
+<%- include('partials/header.ejs') %>
+
+    <form class="create-article" method="post" action="/create">
+        <input type="hidden" name="id">
+        <input name="title" type="text" placeholder="Le titre de votre article">
+        <input name="description" type="text" placeholder="La description de votre article">
+        <textarea name="content" placeholder="Le contenu de votre article"></textarea>
+        <input type="submit" value="Ajouter">
+    </form>
+
+    <% - include('partials/footer.ejs') %>

@@ -1,0 +1,63 @@
+<%- include('partials/header.ejs') %>
+
+    <div class="create-div">
+        <a class="addarticle" href="/create"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+            </svg></a>
+    </div>
+    <%if(locals.first){ %>
+        <div class="top-news article" data-id="<%= first.id %>" data-title="<%= first.title %>"
+            data-description="<%= first.description %>" data-content="<%= first.content %>"
+            onclick="location.href='/article/<%= first.id %>'">
+            <img src="https://picsum.photos/600/400">
+            <div class="news-text">
+                <h1>
+                    <%= first.title %>
+                </h1>
+                <P>
+                    <%= first.description %>
+                </P>
+            </div>
+            <button class="readmore-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                </svg> Read more</button>
+        </div>
+    <%} %>
+
+    <p class="recent">Recent writings</p>
+    <div class="articles">
+        <% article.forEach((data)=> { %>
+            <% if (data.id !==first.id) { %>
+                <div class="article" data-id="<%= data.id %>" data-title="<%= data.title %>"
+                    data-description="<%= data.description %>" data-content="<%= data.content %>"
+                    onclick="location.href='/article/<%= data.id %>'">
+                    <img src="https://picsum.photos/400/200">
+                    <div class="front-row">
+                        <h2 class="title">
+                            <%= data.title %>
+                        </h2>
+                        <form class="delete-form" action="/delete/<%= data.id %>" method="POST"
+                            style="display: inline;">
+                            <button class="delete" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                </svg></button>
+                        </form>
+                    </div>
+
+                    <p class="description">
+                        <%= data.description.replace(/\n/g, '<br>' ) %>
+                    </p>
+
+                </div>
+                <% } %>
+
+                    <% }) %>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/main.js"></script>

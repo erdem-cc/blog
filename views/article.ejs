@@ -1,0 +1,78 @@
+<%- include('partials/header.ejs') %>
+    <div class="content">
+        <div class="utilities">
+            <a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                </svg></a>
+            <div class="second-utilities">
+                <a class="modify"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pen-fill" viewBox="0 0 16 16">
+                        <path
+                            d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                    </svg></a>
+                <form class="delete-form" action="/delete/<%= article.id %>" method="POST" style="display: inline;">
+                    <button class="delete" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                        </svg></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="body-content">
+            <div class="inside-content">
+                <div id="form" class="hidden">
+                    <form class="modify-form" action="/modify" method="POST">
+                        <input type="hidden" name="id" value="<%=article.id%>">
+                        <input name="title" type="text" value="<%= article.title %>">
+                        <input name="description" type="text" value="<%= article.description%>">
+                        <textarea name="content"><%= article.content%></textarea>
+                        <input type="submit" value="Modifier">
+                    </form>
+                </div>
+                <div id="article-content">
+                    <div class="article-content-title">
+                        <h1>
+                            <%= article.title %>
+                        </h1>
+                    </div>
+
+                    <div class="article-content-description">
+                        <p>
+                            <%= article.description %>
+                        </p>
+                    </div>
+
+                    <div class="article-content-content">
+                        <div>
+                            <%- article.content.replace(/\n/g, '<br>' ) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="article-list">
+                <h3>Other articles </h3>
+                <br>
+                <% if(locals.articles){ %>
+                    <% articles.forEach(data => { %>
+                        <% if (data.id !== article.id) { %>
+                        <div id="article" class="article" data-id="<%= data.id %>" data-title="<%= data.title %>"
+                            data-description="<%= data.description %>" data-content="<%= data.content %>"
+                            onclick="location.href='/article/<%= data.id %>'">
+                            <h1><%= data.title %></h1>
+                            <p><%= data.description %></p>
+                        </div>
+                        <%} %>
+                   <% }); %>
+                <%} %>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/main.js"></script>
